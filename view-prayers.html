@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Prayer Requests</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🙏 Prayer Requests</h1>
+
+<section id="prayerList">
+  <p>Loading prayer requests...</p>
+</section>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, getDocs }
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+const prayerList = document.getElementById("prayerList");
+
+async function loadPrayers() {
+  const snapshot = await getDocs(collection(db, "prayerRequests"));
+
+  if (snapshot.empty) {
+    prayerList.innerHTML = "<p>No prayer requests yet.</p>";
+    return;
+  }
+
+  prayerList.innerHTML = "";
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
+
+    prayerList.innerHTML += `
+      <div class="dashboard-card">
+        <h3>${data.name}</h3>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p>${data.prayer}</p>
+      </div>
+    `;
+  });
+}
+
+
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+async function loadPrayerRequests() {
+
+    const prayerList = document.getElementById("prayerList");
+
+    prayerList.innerHTML = "";
+
+    console.log("Loading prayer requests...");
+
+const querySnapshot = await getDocs(collection(db, "prayerRequests"));
+
+console.log("Documents found:", querySnapshot.size);
+    
+    
+    
+
+    querySnapshot.forEach((doc) => {
+
+        const prayer = doc.data();
+
+        prayerList.innerHTML += `
+        <div class="dashboard-card">
+            <h3>${prayer.name}</h3>
+            <p><strong>Email:</strong> ${prayer.email}</p>
+            <p>${prayer.prayer}</p>
+        </div>
+        `;
+    });
+
+}
+
+async function loadprayerRequests() {
+    try {
+        const prayerList = document.getElementById("prayerList");
+
+        if (!prayerList) {
+            console.log("prayerList element not found");
+            return;
+        }
+
+        prayerList.innerHTML = "";
+
+        const querySnapshot = await getDocs(collection(db, "prayerRequests"));
+
+        if (querySnapshot.empty) {
+            prayerList.innerHTML = "<p>No prayer requests found.</p>";
+            return;
+        }
+
+        querySnapshot.forEach((doc) => {
+            const prayer = doc.data();
+
+            prayerList.innerHTML += `
+                <div class="dashboard-card">
+                    <h3>${prayer.name}</h3>
+                    <p><strong>Email:</strong> ${prayer.email}</p>
+                    <p>${prayer.prayer}</p>
+                </div>
+            `;
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+loadprayerRequests();
+
+
+loadPrayers();
+</script>
+
+</body>
+</html>

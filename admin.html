@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+<h1>Ministry Admin Dashboard</h1>
+
+<p>Manage your website content</p>
+
+</header>
+
+<section class="dashboard">
+
+<div class="dashboard-card">
+<h2>📖 Sermons</h2>
+<p>Add and manage sermons.</p>
+</div>
+
+<div class="dashboard-card">
+<h2>🎵 Music</h2>
+<p>Upload worship songs and albums.</p>
+</div>
+
+<div class="dashboard-card">
+<h2>📝 Blog</h2>
+<p>Write devotionals and articles.</p>
+</div>
+
+<div class="dashboard-card">
+<h2>📅 Events</h2>
+<p>Create and manage ministry events.</p>
+</div>
+
+<div class="dashboard-card">
+<h2>🙏 Prayer Requests</h2>
+<p>View prayer requests from visitors.</p>
+</div>
+
+<div class="dashboard-card">
+<h2>👥 Members</h2>
+<p>View website subscribers.</p>
+</div>
+
+<section class="add-sermon">
+
+<h2>Add a New Sermon</h2>
+
+<input type="text" id="title" placeholder="Sermon Title">
+
+<textarea id="message" placeholder="Write your sermon here..."></textarea>
+
+<button id="publish">
+Publish Sermon
+</button>
+
+<p id="status"></p>
+
+<section class="sermon-list">
+
+  <h2>Published Sermons</h2>
+
+  <div id="sermonList">
+    <p>Loading sermons...</p>
+  </div>
+
+</section>
+
+
+</section>
+
+<section class="prayer-requests">
+
+    <h2>Prayer Requests</h2>
+
+    <div id="prayerList"></div>
+
+</section>
+
+</section>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>
