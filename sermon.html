@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sermon | Min. Emmanuel Mulangira</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1 id="sermonTitle">Loading...</h1>
+</header>
+
+<section id="sermonContent">
+Loading sermon...
+</section>
+
+<script type="module">
+
+import { db } from "./firebase.js";
+import { doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+const urlParams = new URLSearchParams(window.location.search);
+const sermonId = urlParams.get("id");
+
+const titleElement = document.getElementById("sermonTitle");
+const contentElement = document.getElementById("sermonContent");
+
+async function loadSermon() {
+
+  if (!sermonId) {
+    contentElement.innerHTML = "Sermon not found.";
+    return;
+  }
+
+  try {
+
+    const sermonRef = doc(db, "sermons", sermonId);
+    const sermonSnap = await getDoc(sermonRef);
+
+    if (!sermonSnap.exists()) {
+      contentElement.innerHTML = "Sermon not found.";
+      return;
+    }
+
+    const sermon = sermonSnap.data();
+
+    titleElement.innerText = sermon.title;
+
+    const imageHTML = sermon.image
+      ? `<img src="${sermon.image}" 
+              style="width:100%; max-height:400px; object-fit:cover; border-radius:10px; margin-bottom:20px;">`
+      : "";
+
+    contentElement.innerHTML = `
+      ${imageHTML}
+      <p>${sermon.sermon}</p>
+    `;
+
+  } catch (error) {
+    console.error(error);
+    contentElement.innerHTML = "Error loading sermon.";
+  }
+}
+
+loadSermon();
+
+</script>
+
+</body>
+</html>
